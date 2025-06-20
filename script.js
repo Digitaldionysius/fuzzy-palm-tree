@@ -154,27 +154,4 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // ✅ FINAL FIXED SWIPE LOGIC - GRID ONLY
-  let touchStartX, touchStartY;
-  grid.addEventListener('touchstart', e => {
-    touchStartX = e.changedTouches[0].screenX;
-    touchStartY = e.changedTouches[0].screenY;
-  }, { passive: false });
-
-  grid.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].screenX - touchStartX;
-    const dy = e.changedTouches[0].screenY - touchStartY;
-
-    if (Math.abs(dx) > 30 || Math.abs(dy) > 30) {
-      e.preventDefault(); // stop browser refresh/scroll
-    }
-
-    if (Math.abs(dx) > Math.abs(dy)) {
-      if (dx > 30) move('right');
-      else if (dx < -30) move('left');
-    } else {
-      if (dy > 30) move('down');
-      else if (dy < -30) move('up');
-    }
-  }, { passive: false });
-});
+  // ✨
