@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     [...e.target.files].forEach((file, i) => {
       if (!file.type.startsWith('image/')) return;
 
-      const value = 2 ** (i + 1);
+      const value = 2 ** (i + 1); // 2, 4, 8, etc.
       const reader = new FileReader();
       reader.onload = () => {
         tileGIFs[value] = reader.result;
@@ -65,6 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const tile = document.createElement('div');
         tile.className = 'tile';
         tile.setAttribute('data-value', val || '');
+
         if (val && tileGIFs[val]) {
           const img = document.createElement('img');
           img.src = tileGIFs[val];
@@ -72,6 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (val) {
           tile.textContent = val;
         }
+
         grid.appendChild(tile);
       });
     });
@@ -152,15 +154,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // ✅ FINAL FIXED SWIPE LOGIC - GRID ONLY
   let touchStartX, touchStartY;
-  document.addEventListener('touchstart', e => {
+  grid.addEventListener('touchstart', e => {
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
-  });
+  }, { passive: false });
 
-  document.addEventListener('touchend', e => {
+  grid.addEventListener('touchend', e => {
     const dx = e.changedTouches[0].screenX - touchStartX;
     const dy = e.changedTouches[0].screenY - touchStartY;
+
+    if (Math.abs(dx) > 30 || Math.abs(dy) > 30) {
+      e.preventDefault(); // stop browser refresh/scroll
+    }
+
     if (Math.abs(dx) > Math.abs(dy)) {
       if (dx > 30) move('right');
       else if (dx < -30) move('left');
@@ -168,5 +176,5 @@ document.addEventListener('DOMContentLoaded', () => {
       if (dy > 30) move('down');
       else if (dy < -30) move('up');
     }
-  });
+  }, { passive: false });
 });
