@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GIF 2048</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="game-container">
+    <h1>GIF 2048</h1>
+    <div id="grid"></div>
+    <div class="controls">
+      <input type="file" id="gifUploader" multiple accept="image/gif, image/jpeg, image/jpg, image/png">
+      <button onclick="startGame()" disabled>Start Game</button>
+    </div>
+  </div>
+
+  <!-- 💔 Game Over overlay -->
+  <div id="gameOver" class="overlay hidden">
+    <div class="popup">
+      <h2>Game Over 💔</h2>
+      <p>No more moves left.</p>
+      <button onclick="startGame()">Try Again</button>
+    </div>
+  </div>
+</body>
+</html>
