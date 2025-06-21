@@ -160,7 +160,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   let touchStartX, touchStartY;
-
+grid.addEventListener('touchstart', (e) => {
+  e.preventDefault();
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: false });
   grid.addEventListener('touchstart', (e) => {
     touchStartX = e.changedTouches[0].screenX;
     touchStartY = e.changedTouches[0].screenY;
